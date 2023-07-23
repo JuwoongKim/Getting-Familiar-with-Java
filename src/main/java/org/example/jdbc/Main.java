@@ -3,6 +3,9 @@ package org.example.jdbc;
 import org.example.jdbc.builder.constant.SortOrder;
 import org.example.jdbc.builder.order.Order;
 import org.example.jdbc.builder.order.OrderBuilder;
+import org.example.jdbc.builder.select.Select;
+import org.example.jdbc.builder.select.SelectBuilder;
+import org.example.jdbc.builder.table.Table;
 import org.example.jdbc.builder.where.Where;
 import org.example.jdbc.builder.where.WhereBuilder;
 
@@ -23,6 +26,14 @@ public class Main {
             .build();
 
         System.out.println(order.getQuery());
+
+        // select
+        Select select = new SelectBuilder().select("*")
+            .from(Table.PERSON)
+            .where(where)
+            .build();
+
+        System.out.println(select.getQuery());
 
     }
 }

@@ -5,7 +5,6 @@ import org.example.jdbc.builder.constant.SortOrder;
 public class OrderBuilder {
 
     private String columName;
-
     private SortOrder sortOrder;
 
     public OrderBuilder orderBy(String colum) {

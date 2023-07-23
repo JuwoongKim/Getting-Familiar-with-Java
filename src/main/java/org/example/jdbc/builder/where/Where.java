@@ -13,18 +13,20 @@ public class Where {
     public Where(String columName, String condition) {
         this.columName = columName;
         this.condition = condition;
+        makeQuery();
     }
 
-    public String getQuery() {
-        query.append(Symbols.SPACE.getSymbol())
-            .append(WHERE)
+    private void makeQuery() {
+        query.append(WHERE)
             .append(Symbols.SPACE.getSymbol())
             .append(columName)
             .append(Symbols.SPACE.getSymbol())
             .append(Symbols.EQUAL.getSymbol())
             .append(Symbols.SPACE.getSymbol())
             .append(condition);
+    }
 
+    public String getQuery() {
         return query.toString();
     }
 

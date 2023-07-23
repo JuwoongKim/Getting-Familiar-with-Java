@@ -9,22 +9,23 @@ public class Order {
     private final StringBuilder query = new StringBuilder();
 
     private String columName;
-
     private SortOrder sortOrder;
 
     public Order(String columName, SortOrder sortOrder) {
         this.columName = columName;
         this.sortOrder = sortOrder;
+        makeQuery();
     }
 
-    public String getQuery() {
-        query.append(Symbols.SPACE.getSymbol())
-            .append(ORDER_BY)
+    private void makeQuery() {
+        query.append(ORDER_BY)
             .append(Symbols.SPACE.getSymbol())
             .append(columName)
             .append(Symbols.SPACE.getSymbol())
             .append(sortOrder);
+    }
 
+    public String getQuery() {
         return query.toString();
     }
 
