@@ -1,4 +1,4 @@
-package org.example.jdbc.builder;
+package org.example.jdbc.builder.constant;
 
 public enum Symbols {
 
