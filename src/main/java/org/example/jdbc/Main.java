@@ -1,6 +1,8 @@
 package org.example.jdbc;
 
 import org.example.jdbc.builder.constant.SortOrder;
+import org.example.jdbc.builder.delete.Delete;
+import org.example.jdbc.builder.delete.DeleteBuilder;
 import org.example.jdbc.builder.order.Order;
 import org.example.jdbc.builder.order.OrderBuilder;
 import org.example.jdbc.builder.select.Select;
@@ -44,6 +46,13 @@ public class Main {
             .build();
 
         System.out.println(update.getQuery());
+
+        //  delete
+        Delete delete = new DeleteBuilder().delete(Table.ANIMAL)
+            .where(where)
+            .build();
+
+        System.out.println(delete.getQuery());
 
     }
 }
