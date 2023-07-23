@@ -6,6 +6,8 @@ import org.example.jdbc.builder.order.OrderBuilder;
 import org.example.jdbc.builder.select.Select;
 import org.example.jdbc.builder.select.SelectBuilder;
 import org.example.jdbc.builder.table.Table;
+import org.example.jdbc.builder.update.Update;
+import org.example.jdbc.builder.update.UpdateBuilder;
 import org.example.jdbc.builder.where.Where;
 import org.example.jdbc.builder.where.WhereBuilder;
 
@@ -34,6 +36,14 @@ public class Main {
             .build();
 
         System.out.println(select.getQuery());
+
+        // update
+        Update update = new UpdateBuilder().updateInto(Table.ANIMAL)
+            .setValues("dog", "1", "etc")
+            .where(where)
+            .build();
+
+        System.out.println(update.getQuery());
 
     }
 }

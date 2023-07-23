@@ -14,6 +14,7 @@ public class Order {
     public Order(String columName, SortOrder sortOrder) {
         this.columName = columName;
         this.sortOrder = sortOrder;
+
         makeQuery();
     }
 

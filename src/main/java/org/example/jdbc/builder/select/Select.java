@@ -21,6 +21,7 @@ public class Select {
         this.table = table;
         this.where = where;
         this.order = order;
+
         makeQuery();
     }
 

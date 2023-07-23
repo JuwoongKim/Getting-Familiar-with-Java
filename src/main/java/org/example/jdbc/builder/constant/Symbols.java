@@ -5,7 +5,8 @@ public enum Symbols {
     SPACE(" "),
     EQUAL("="),
     LEFT_PARENTHESES("("),
-    RIGHT_PARENTHESES(")")
+    RIGHT_PARENTHESES(")"),
+    COMMA(",")
     ;
 
     private final String symbol;
