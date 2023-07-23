@@ -5,6 +5,7 @@ import org.example.jdbc.builder.delete.Delete;
 import org.example.jdbc.builder.delete.DeleteBuilder;
 import org.example.jdbc.builder.order.Order;
 import org.example.jdbc.builder.order.OrderBuilder;
+import org.example.jdbc.builder.select.Person;
 import org.example.jdbc.builder.select.Select;
 import org.example.jdbc.builder.select.SelectBuilder;
 import org.example.jdbc.builder.table.Table;
@@ -32,7 +33,7 @@ public class Main {
         System.out.println(order.getQuery());
 
         // select
-        Select select = new SelectBuilder().select("*")
+        Select select = new SelectBuilder().select(new Person(1,"juwoong",20))
             .from(Table.PERSON)
             .where(where)
             .build();
