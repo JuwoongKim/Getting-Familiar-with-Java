@@ -1,13 +1,10 @@
 package org.example.jdbc.builder;
 
 import java.lang.reflect.Field;
-import org.example.jdbc.builder.constant.Symbols;
 import org.example.jdbc.builder.constant.Table;
 
 public class Select<T> {
 
-    private final String SELECT = "SELECT";
-    private final String FROM = "FROM";
     private final StringBuilder query = new StringBuilder();
 
     private T columName;
@@ -61,24 +58,16 @@ public class Select<T> {
     }
 
     private void makeQuery() {
-        query.append(SELECT)
-            .append(Symbols.SPACE.getSymbol());
-
+        query.append("SELECT ");
         appendColums();
-
-        query.append(Symbols.SPACE.getSymbol())
-            .append(FROM)
-            .append(Symbols.SPACE.getSymbol())
-            .append(table);
+        query.append(String.format(" FROM %s", table));
 
         if (where != null) {
-            query.append(Symbols.SPACE.getSymbol())
-                .append(where.getQuery());
+            query.append(String.format(" %s", where.getQuery()));
         }
 
         if (order != null) {
-            query.append(Symbols.SPACE.getSymbol())
-                .append(order.getQuery());
+            query.append(String.format(" %s", order.getQuery()));
         }
 
     }

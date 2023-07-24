@@ -5,9 +5,8 @@ import org.example.jdbc.builder.constant.Table;
 
 public class Update {
 
-    private final int REMOVE_SIZE = 1;
+    private final int REMOVE_SIZE = 2;
 
-    private final String UPDATE = "UPDATE INTO";
     private final StringBuilder query = new StringBuilder();
 
     private Table table;
@@ -53,25 +52,18 @@ public class Update {
     }
 
     private void makeQuery() {
-        query.append(UPDATE)
-            .append(Symbols.SPACE.getSymbol())
-            .append(table)
-            .append(Symbols.SPACE.getSymbol())
-            .append(Symbols.LEFT_PARENTHESES.getSymbol());
+        query.append(String.format("UPDATE INTO %s %s", table, Symbols.LEFT_PARENTHESES.getSymbol()));
 
         for (String value : values) {
-            query.append(value)
-                .append(Symbols.COMMA.getSymbol());
+            query.append(String.format("%s %s", value, Symbols.COMMA.getSymbol()));
         }
 
         query.delete(query.length() - REMOVE_SIZE, query.length());
         query.append(Symbols.RIGHT_PARENTHESES.getSymbol());
 
         if (where != null) {
-            query.append(Symbols.SPACE.getSymbol())
-                .append(where.getQuery());
+            query.append(String.format(" %s", where.getQuery()));
         }
-
     }
 
     public String getQuery() {

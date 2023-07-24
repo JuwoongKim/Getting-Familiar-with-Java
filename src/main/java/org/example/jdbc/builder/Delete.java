@@ -1,11 +1,9 @@
 package org.example.jdbc.builder;
 
-import org.example.jdbc.builder.constant.Symbols;
 import org.example.jdbc.builder.constant.Table;
 
 public class Delete {
 
-    private final String DELETE = "DELETE";
     private final StringBuilder query = new StringBuilder();
 
     private Table table;
@@ -41,15 +39,11 @@ public class Delete {
 
     }
 
-
     private void makeQuery() {
-        query.append(DELETE)
-            .append(Symbols.SPACE.getSymbol())
-            .append(table);
+        query.append(String.format("DELETE %s", table));
 
         if (where != null) {
-            query.append(Symbols.SPACE.getSymbol())
-                .append(where.getQuery());
+            query.append(String.format(" %s", where.getQuery()));
         }
     }
 

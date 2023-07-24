@@ -36,6 +36,7 @@ public class Main {
         // select
         Select select = new Select.Builder<>()
             .select(new Person(1, "juwoong", 20))
+            .from(Table.ANIMAL)
             .where(where)
             .build();
 

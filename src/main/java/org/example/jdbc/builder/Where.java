@@ -2,13 +2,10 @@ package org.example.jdbc.builder;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.example.jdbc.builder.constant.Operator;
-import org.example.jdbc.builder.constant.Symbols;
 
 public class Where {
 
-    private final String WHERE = "WHERE";
     private final StringBuilder query = new StringBuilder();
 
     private String lhs;
@@ -16,7 +13,7 @@ public class Where {
     private String rhs;
     private List<String> logicalConditions;
 
-    public Where(String lhs, String operator, String rhs, List<String> logicalConditions) {
+    private Where(String lhs, String operator, String rhs, List<String> logicalConditions) {
         this.lhs = lhs;
         this.operator = operator;
         this.rhs = rhs;
@@ -26,8 +23,6 @@ public class Where {
     }
 
     public static class Builder {
-        private final String OR = "OR";
-        private final String AND = "AND";
 
         private String lhs;
         private String operator;
@@ -47,33 +42,13 @@ public class Where {
         }
 
         public Builder or(String lhs, Operator operator, String rhs) {
-            StringBuilder statement = new StringBuilder();
-
-            statement.append(OR)
-                .append(Symbols.SPACE.getSymbol())
-                .append(lhs)
-                .append(Symbols.SPACE.getSymbol())
-                .append(operator.getSymbol())
-                .append(Symbols.SPACE.getSymbol())
-                .append(rhs);
-
-            logicalConditions.add(statement.toString());
+            logicalConditions.add(String.format("OR %s %s %s", lhs, operator.getSymbol(), rhs));
 
             return this;
         }
 
         public Builder and(String lhs, Operator operator, String rhs) {
-            StringBuilder statement = new StringBuilder();
-
-            statement.append(AND)
-                .append(Symbols.SPACE.getSymbol())
-                .append(lhs)
-                .append(Symbols.SPACE.getSymbol())
-                .append(operator.getSymbol())
-                .append(Symbols.SPACE.getSymbol())
-                .append(rhs);
-
-            logicalConditions.add(statement.toString());
+            logicalConditions.add(String.format("AND %s %s %s", lhs, operator.getSymbol(), rhs));
 
             return this;
         }
@@ -91,17 +66,10 @@ public class Where {
     }
 
     private void makeQuery() {
-        query.append(WHERE)
-            .append(Symbols.SPACE.getSymbol())
-            .append(lhs)
-            .append(Symbols.SPACE.getSymbol())
-            .append(operator)
-            .append(Symbols.SPACE.getSymbol())
-            .append(rhs);
+        query.append(String.format("WHERE %s %s %s", lhs, operator, rhs));
 
         for (String logicalCondition : logicalConditions) {
-            query.append(Symbols.SPACE.getSymbol())
-                .append(logicalCondition);
+            query.append(String.format(" %s", logicalCondition));
         }
     }
 

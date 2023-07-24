@@ -1,18 +1,12 @@
 package org.example.jdbc.builder;
 
-
-import org.example.jdbc.builder.constant.Symbols;
-
 public class Order {
 
     public static enum Sort {
         ASC,
-        DESC
-        ;
+        DESC;
     }
 
-
-    private final String ORDER_BY = "ORDER BY";
     private final StringBuilder query = new StringBuilder();
 
     private String columName;
@@ -49,11 +43,7 @@ public class Order {
     }
 
     private void makeQuery() {
-        query.append(ORDER_BY)
-            .append(Symbols.SPACE.getSymbol())
-            .append(columName)
-            .append(Symbols.SPACE.getSymbol())
-            .append(sort);
+        query.append(String.format("ORDER BY %s %s", columName, sort));
     }
 
     public String getQuery() {
