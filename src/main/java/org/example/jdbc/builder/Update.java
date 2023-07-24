@@ -2,7 +2,6 @@ package org.example.jdbc.builder;
 
 import org.example.jdbc.builder.constant.Symbols;
 import org.example.jdbc.builder.constant.Table;
-import org.example.jdbc.builder.where.Where;
 
 public class Update {
 

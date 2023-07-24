@@ -3,20 +3,21 @@ package org.example.jdbc;
 import org.example.jdbc.builder.Delete;
 import org.example.jdbc.builder.Order;
 import org.example.jdbc.builder.Update;
+import org.example.jdbc.builder.Where;
 import org.example.jdbc.builder.constant.SortOrder;
 import org.example.jdbc.builder.constant.Table;
 import org.example.jdbc.testobj.Person;
 import org.example.jdbc.builder.Select;
-import org.example.jdbc.builder.where.Where;
-import org.example.jdbc.builder.where.WhereBuilder;
 
 public class Main {
 
     public static void main(String[] args) throws Exception {
 
         // where
-        Where where = new WhereBuilder().where("VOUCHER_ID")
-            .isEqualTo("1")
+        Where where = new Where.Builder()
+            .where("DATE(order_date)")
+            .setOperator("=")
+            .value("2023-07-24")
             .build();
 
         System.out.println(where.getQuery());

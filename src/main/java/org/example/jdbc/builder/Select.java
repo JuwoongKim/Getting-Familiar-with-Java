@@ -3,7 +3,6 @@ package org.example.jdbc.builder;
 import java.lang.reflect.Field;
 import org.example.jdbc.builder.constant.Symbols;
 import org.example.jdbc.builder.constant.Table;
-import org.example.jdbc.builder.where.Where;
 
 public class Select<T> {
 
