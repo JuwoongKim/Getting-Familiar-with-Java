@@ -4,8 +4,8 @@ import org.example.jdbc.builder.Delete;
 import org.example.jdbc.builder.Order;
 import org.example.jdbc.builder.Update;
 import org.example.jdbc.builder.Where;
+import static org.example.jdbc.builder.Order.Sort.*;
 import static org.example.jdbc.builder.constant.Operator.*;
-import org.example.jdbc.builder.constant.SortOrder;
 import org.example.jdbc.builder.constant.Table;
 import org.example.jdbc.testobj.Person;
 import org.example.jdbc.builder.Select;
@@ -28,7 +28,7 @@ public class Main {
         // order by
         Order order = new Order.Builder()
             .orderBy("VOUCHER_ID")
-            .setSortOrder(SortOrder.DESC)
+            .setSortOrder(ASC)
             .build();
 
         System.out.println(order.getQuery());

@@ -1,19 +1,26 @@
 package org.example.jdbc.builder;
 
-import org.example.jdbc.builder.constant.SortOrder;
+
 import org.example.jdbc.builder.constant.Symbols;
 
 public class Order {
+
+    public static enum Sort {
+        ASC,
+        DESC
+        ;
+    }
+
 
     private final String ORDER_BY = "ORDER BY";
     private final StringBuilder query = new StringBuilder();
 
     private String columName;
-    private SortOrder sortOrder;
+    private Sort sort;
 
-    private Order(String columName, SortOrder sortOrder) {
+    private Order(String columName, Sort sort) {
         this.columName = columName;
-        this.sortOrder = sortOrder;
+        this.sort = sort;
 
         makeQuery();
     }
@@ -21,7 +28,7 @@ public class Order {
     public static class Builder {
 
         private String columName;
-        private SortOrder sortOrder;
+        private Sort sort;
 
         public Builder orderBy(String colum) {
             this.columName = colum;
@@ -29,14 +36,14 @@ public class Order {
             return this;
         }
 
-        public Builder setSortOrder(SortOrder sortOrder) {
-            this.sortOrder = sortOrder;
+        public Builder setSortOrder(Sort sort) {
+            this.sort = sort;
 
             return this;
         }
 
         public Order build() {
-            return new Order(columName, sortOrder);
+            return new Order(columName, sort);
         }
 
     }
@@ -46,7 +53,7 @@ public class Order {
             .append(Symbols.SPACE.getSymbol())
             .append(columName)
             .append(Symbols.SPACE.getSymbol())
-            .append(sortOrder);
+            .append(sort);
     }
 
     public String getQuery() {
