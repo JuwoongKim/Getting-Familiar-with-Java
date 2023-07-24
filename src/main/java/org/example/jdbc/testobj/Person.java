@@ -1,4 +1,4 @@
-package org.example.jdbc.builder.select;
+package org.example.jdbc.testobj;
 
 public class Person {
 

@@ -1,9 +1,8 @@
-package org.example.jdbc.builder.select;
+package org.example.jdbc.builder;
 
 import java.lang.reflect.Field;
 import org.example.jdbc.builder.constant.Symbols;
-import org.example.jdbc.builder.order.Order;
-import org.example.jdbc.builder.table.Table;
+import org.example.jdbc.builder.constant.Table;
 import org.example.jdbc.builder.where.Where;
 
 public class Select<T> {
@@ -17,13 +16,49 @@ public class Select<T> {
     private Where where;
     private Order order;
 
-    public Select(T columName, Table table, Where where, Order order) {
+    private Select(T columName, Table table, Where where, Order order) {
         this.columName = columName;
         this.table = table;
         this.where = where;
         this.order = order;
 
         makeQuery();
+    }
+
+    public static class Builder<T> {
+        private T colums;
+        private Table table;
+        private Where where;
+        private Order order;
+
+        public Builder<T> select(T colums) {
+            this.colums = colums;
+
+            return this;
+        }
+
+        public Builder<T> from(Table table) {
+            this.table = table;
+
+            return this;
+        }
+
+        public Builder<T> where(Where where) {
+            this.where = where;
+
+            return this;
+        }
+
+        public Builder<T> orderBy(Order order) {
+            this.order = order;
+
+            return this;
+        }
+
+        public Select build() {
+            return new Select(colums, table, where, order);
+        }
+
     }
 
     private void makeQuery() {

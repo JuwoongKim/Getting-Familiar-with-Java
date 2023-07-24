@@ -1,4 +1,4 @@
-package org.example.jdbc.builder.order;
+package org.example.jdbc.builder;
 
 import org.example.jdbc.builder.constant.SortOrder;
 import org.example.jdbc.builder.constant.Symbols;
@@ -11,11 +11,34 @@ public class Order {
     private String columName;
     private SortOrder sortOrder;
 
-    public Order(String columName, SortOrder sortOrder) {
+    private Order(String columName, SortOrder sortOrder) {
         this.columName = columName;
         this.sortOrder = sortOrder;
 
         makeQuery();
+    }
+
+    public static class Builder {
+
+        private String columName;
+        private SortOrder sortOrder;
+
+        public Builder orderBy(String colum) {
+            this.columName = colum;
+
+            return this;
+        }
+
+        public Builder setSortOrder(SortOrder sortOrder) {
+            this.sortOrder = sortOrder;
+
+            return this;
+        }
+
+        public Order build() {
+            return new Order(columName, sortOrder);
+        }
+
     }
 
     private void makeQuery() {
