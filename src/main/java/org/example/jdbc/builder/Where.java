@@ -2,21 +2,18 @@ package org.example.jdbc.builder;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.example.jdbc.builder.constant.Operator;
+
+import org.example.jdbc.builder.operator.Operator;
 
 public class Where {
 
     private final StringBuilder query = new StringBuilder();
 
-    private String lhs;
-    private String operator;
-    private String rhs;
+    public String baseCondition;
     private List<String> logicalConditions;
 
-    private Where(String lhs, String operator, String rhs, List<String> logicalConditions) {
-        this.lhs = lhs;
-        this.operator = operator;
-        this.rhs = rhs;
+    private Where(String baseCondition, List<String> logicalConditions) {
+        this.baseCondition = baseCondition;
         this.logicalConditions = logicalConditions;
 
         makeQuery();
@@ -24,49 +21,35 @@ public class Where {
 
     public static class Builder {
 
-        private String lhs;
-        private String operator;
-        private String rhs;
+        private String baseCondition;
         private List<String> logicalConditions = new ArrayList<>();
 
-        public Builder where(String lhs) {
-            this.lhs = lhs;
+        public Builder where(Operator operator) {
+            this.baseCondition = String.format("WHERE %s", operator.getStatement());
 
             return this;
         }
 
-        public Builder setOperator(String operator) {
-            this.operator = operator;
+        public Builder or(Operator operator) {
+            logicalConditions.add(String.format("OR %s", operator.getStatement()));
 
             return this;
         }
 
-        public Builder or(String lhs, Operator operator, String rhs) {
-            logicalConditions.add(String.format("OR %s %s %s", lhs, operator.getSymbol(), rhs));
-
-            return this;
-        }
-
-        public Builder and(String lhs, Operator operator, String rhs) {
-            logicalConditions.add(String.format("AND %s %s %s", lhs, operator.getSymbol(), rhs));
-
-            return this;
-        }
-
-        public Builder value(String rhs) {
-            this.rhs = rhs;
+        public Builder and(Operator operator) {
+            logicalConditions.add(String.format("AND %s", operator.getStatement()));
 
             return this;
         }
 
         public Where build() {
-            return new Where(lhs, operator, rhs, logicalConditions);
+            return new Where(baseCondition, logicalConditions);
         }
 
     }
 
     private void makeQuery() {
-        query.append(String.format("WHERE %s %s %s", lhs, operator, rhs));
+        query.append(baseCondition);
 
         for (String logicalCondition : logicalConditions) {
             query.append(String.format(" %s", logicalCondition));

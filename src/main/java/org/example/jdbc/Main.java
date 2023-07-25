@@ -5,8 +5,9 @@ import org.example.jdbc.builder.Order;
 import org.example.jdbc.builder.Update;
 import org.example.jdbc.builder.Where;
 import static org.example.jdbc.builder.Order.Sort.*;
-import static org.example.jdbc.builder.constant.Operator.*;
 import org.example.jdbc.builder.constant.Table;
+import org.example.jdbc.builder.operator.Eq;
+import org.example.jdbc.builder.operator.Gt;
 import org.example.jdbc.testobj.Person;
 import org.example.jdbc.builder.Select;
 
@@ -16,11 +17,9 @@ public class Main {
 
         // where
         Where where = new Where.Builder()
-            .where("DATE(order_date)")
-            .setOperator("=")
-            .value("2023-07-24")
-            .and("VOUCHER_ID", from("<="), "12")
-            .or("WALLET_ID", from(">="), "30")
+            .where(new Eq("DATE(order_date)","2023-07-24" ))
+            .and(new Gt("VOUCHER_ID","12"))
+            .or(new Eq("WALLET_ID","30"))
             .build();
 
         System.out.println(where.getQuery());
