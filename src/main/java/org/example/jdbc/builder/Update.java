@@ -1,6 +1,5 @@
 package org.example.jdbc.builder;
 
-import org.example.jdbc.builder.constant.Symbols;
 import org.example.jdbc.builder.constant.Table;
 
 public class Update {
@@ -52,14 +51,14 @@ public class Update {
     }
 
     private void makeQuery() {
-        query.append(String.format("UPDATE INTO %s %s", table, Symbols.LEFT_PARENTHESES.getSymbol()));
+        query.append(String.format("UPDATE INTO %s (", table));
 
         for (String value : values) {
-            query.append(String.format("%s %s", value, Symbols.COMMA.getSymbol()));
+            query.append(String.format("%s,", value));
         }
 
         query.delete(query.length() - REMOVE_SIZE, query.length());
-        query.append(Symbols.RIGHT_PARENTHESES.getSymbol());
+        query.append(")");
 
         if (where != null) {
             query.append(String.format(" %s", where.getQuery()));

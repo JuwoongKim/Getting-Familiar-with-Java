@@ -1,15 +1,15 @@
 package org.example.jdbc;
 
+import static org.example.jdbc.builder.Order.Sort.*;
 import org.example.jdbc.builder.Delete;
 import org.example.jdbc.builder.Order;
+import org.example.jdbc.builder.Select;
 import org.example.jdbc.builder.Update;
 import org.example.jdbc.builder.Where;
-import static org.example.jdbc.builder.Order.Sort.*;
 import org.example.jdbc.builder.constant.Table;
 import org.example.jdbc.builder.operator.Eq;
 import org.example.jdbc.builder.operator.Gt;
 import org.example.jdbc.testobj.Person;
-import org.example.jdbc.builder.Select;
 
 public class Main {
 

@@ -9,11 +9,11 @@ public class Where {
 
     private final StringBuilder query = new StringBuilder();
 
-    public String baseCondition;
+    private String baseConditions;
     private List<String> logicalConditions;
 
-    private Where(String baseCondition, List<String> logicalConditions) {
-        this.baseCondition = baseCondition;
+    private Where(String baseConditions, List<String> logicalConditions) {
+        this.baseConditions = baseConditions;
         this.logicalConditions = logicalConditions;
 
         makeQuery();
@@ -21,35 +21,38 @@ public class Where {
 
     public static class Builder {
 
-        private String baseCondition;
+        private String baseConditions;
         private List<String> logicalConditions = new ArrayList<>();
 
         public Builder where(Operator operator) {
-            this.baseCondition = String.format("WHERE %s", operator.getStatement());
+            this.baseConditions = String.format("WHERE %s %s %s", operator.getLhs(), operator.getOperate(),
+                operator.getRhs());
 
             return this;
         }
 
         public Builder or(Operator operator) {
-            logicalConditions.add(String.format("OR %s", operator.getStatement()));
+            logicalConditions.add(
+                String.format("OR %s %s %s", operator.getLhs(), operator.getOperate(), operator.getRhs()));
 
             return this;
         }
 
         public Builder and(Operator operator) {
-            logicalConditions.add(String.format("AND %s", operator.getStatement()));
+            logicalConditions.add(
+                String.format("AND %s %s %s", operator.getLhs(), operator.getOperate(), operator.getRhs()));
 
             return this;
         }
 
         public Where build() {
-            return new Where(baseCondition, logicalConditions);
+            return new Where(baseConditions, logicalConditions);
         }
 
     }
 
     private void makeQuery() {
-        query.append(baseCondition);
+        query.append(String.format(baseConditions));
 
         for (String logicalCondition : logicalConditions) {
             query.append(String.format(" %s", logicalCondition));
