@@ -19,6 +19,10 @@ public class Order {
         makeQuery();
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public static class Builder {
 
         private String columName;

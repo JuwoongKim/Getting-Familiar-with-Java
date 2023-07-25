@@ -21,6 +21,10 @@ public class Select<T> {
         makeQuery();
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public static class Builder<T> {
         private T colums;
         private Table table;

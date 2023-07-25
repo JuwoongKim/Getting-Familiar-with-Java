@@ -15,7 +15,7 @@ class BuilderTest {
     @Test
     void WhereTest() {
         // given when
-        Where where = new Where.Builder()
+        Where where = Where.builder()
             .where(new Eq("VOUCHER_ID", "1"))
             .build();
 
@@ -27,7 +27,7 @@ class BuilderTest {
     @Test
     void WhereWithLogicalConditionTest() {
         // given when
-        Where where = new Where.Builder()
+        Where where = Where.builder()
             .where(new Eq("VOUCHER_TYPE", "WELCOME"))
             .and(new Gt("CUSTOMER_AGE", "20"))
             .or(new Eq("CUSTOMER_TYPE", "VIP"))
@@ -41,7 +41,7 @@ class BuilderTest {
     @Test
     void OrderTest() {
         // given when
-        Order order = new Order.Builder()
+        Order order = Order.builder()
             .orderBy("VOUCHER_ID")
             .setSortOrder(ASC)
             .build();
@@ -54,7 +54,7 @@ class BuilderTest {
     @DisplayName("SELECT 절 생성 테스트")
     void SelectTest() {
         // given when
-        Select select = new Select.Builder<>()
+        Select select = Select.builder()
             .select(new Person(1, "juwoong", 20))
             .from(Table.ANIMAL)
             .build();
@@ -67,18 +67,18 @@ class BuilderTest {
     @DisplayName("SELECT 절 WHERE 조건 추가 생성 테스트")
     void SelectWithWhereTest() {
         // given when
-        Where where = new Where.Builder()
+        Where where = Where.builder()
             .where(new Eq("VOUCHER_TYPE", "WELCOME"))
             .and(new Gt("CUSTOMER_AGE", "20"))
             .or(new Eq("CUSTOMER_TYPE", "VIP"))
             .build();
 
-        Order order = new Order.Builder()
+        Order order = Order.builder()
             .orderBy("VOUCHER_ID")
             .setSortOrder(ASC)
             .build();
 
-        Select select = new Select.Builder<>()
+        Select select = Select.builder()
             .select(new Person(1, "juwoong", 20))
             .from(Table.ANIMAL)
             .where(where)
@@ -94,18 +94,18 @@ class BuilderTest {
     @DisplayName("SELECT 절 WHERE 조건 추가 ORDER 조건 추가 생성 테스트")
     void SelectWithWhereWithOrderTest() {
         // given when
-        Where where = new Where.Builder()
+        Where where = Where.builder()
             .where(new Eq("VOUCHER_TYPE", "WELCOME"))
             .and(new Gt("CUSTOMER_AGE", "20"))
             .or(new Eq("CUSTOMER_TYPE", "VIP"))
             .build();
 
-        Order order = new Order.Builder()
+        Order order = Order.builder()
             .orderBy("VOUCHER_ID")
             .setSortOrder(ASC)
             .build();
 
-        Select select = new Select.Builder<>()
+        Select select = Select.builder()
             .select(new Person(1, "juwoong", 20))
             .from(Table.ANIMAL)
             .where(where)
@@ -122,7 +122,7 @@ class BuilderTest {
     @DisplayName("UPDATE 절 생성 테스트")
     void UpdateTest() {
         // given when
-        Update update = new Update.Builder()
+        Update update = Update.builder()
             .updateInto(Table.ANIMAL)
             .setValues("dog", "1", "etc")
             .build();
@@ -135,11 +135,11 @@ class BuilderTest {
     @DisplayName("UPDATE 절 WHERE 조건 추가 생성 테스트")
     void UpdateWithWhereTest() {
         // given when
-        Where where = new Where.Builder()
+        Where where = Where.builder()
             .where(new Eq("VOUCHER_ID", "1"))
             .build();
 
-        Update update = new Update.Builder()
+        Update update = Update.builder()
             .updateInto(Table.ANIMAL)
             .setValues("dog", "1", "etc")
             .where(where)
@@ -153,7 +153,7 @@ class BuilderTest {
     @DisplayName("DELETE 절 생성 테스트")
     void DeleteTest() {
         // given when
-        Delete delete = new Delete.Builder()
+        Delete delete = Delete.builder()
             .delete(Table.ANIMAL)
             .build();
 
@@ -165,11 +165,11 @@ class BuilderTest {
     @DisplayName("DELETE 절 WHERE 조건 추가 생성 테스트")
     void DeleteWithWhereTest() {
         // given when
-        Where where = new Where.Builder()
+        Where where = Where.builder()
             .where(new Eq("VOUCHER_ID", "1"))
             .build();
 
-        Delete delete = new Delete.Builder()
+        Delete delete = Delete.builder()
             .delete(Table.ANIMAL)
             .where(where)
             .build();

@@ -20,6 +20,10 @@ public class Update {
         makeQuery();
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public static class Builder {
 
         private Table table;

@@ -16,6 +16,10 @@ public class Delete {
         makeQuery();
     }
 
+    public static Builder builder() {
+        return new Builder();
+    }
+
     public static class Builder {
 
         private Table table;
