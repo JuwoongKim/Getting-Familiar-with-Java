@@ -27,29 +27,69 @@ public class Update {
     public static class Builder {
 
         private Table table;
-        private String[] values;
-        private Where where;
 
-        public Builder updateInto(Table table) {
+        public ValuesBuilder updateInto(Table table) {
             this.table = table;
 
-            return this;
+            return new ValuesBuilder(table);
         }
 
-        public Builder setValues(String... values) {
-            this.values = values;
+        public static class ValuesBuilder {
 
-            return this;
+            private Table table;
+            private String[] values;
+
+            public ValuesBuilder(Table table) {
+                this.table = table;
+            }
+
+            public WhereBuilder setValues(String... values) {
+                this.values = values;
+
+                return new WhereBuilder(table, values);
+            }
+
         }
 
-        public Builder where(Where where) {
-            this.where = where;
+        public static class WhereBuilder {
 
-            return this;
+            private Table table;
+            private String[] values;
+            private Where where;
+
+            public WhereBuilder(Table table, String[] values) {
+                this.table = table;
+                this.values = values;
+            }
+
+            public EndBuilder where(Where where) {
+                this.where = where;
+
+                return new EndBuilder(table, values, where);
+            }
+
+            public Update build() {
+                return new Update(table, values, where);
+            }
+
         }
 
-        public Update build() {
-            return new Update(table, values, where);
+        public static class EndBuilder {
+
+            private Table table;
+            private String[] values;
+            private Where where;
+
+            public EndBuilder(Table table, String[] values, Where where) {
+                this.table = table;
+                this.values = values;
+                this.where = where;
+            }
+
+            public Update build() {
+                return new Update(table, values, where);
+            }
+
         }
 
     }
