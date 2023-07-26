@@ -2,7 +2,6 @@ package org.example.jdbc.builder;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.example.jdbc.builder.operator.Operator;
 
 public class Where {
@@ -26,31 +25,40 @@ public class Where {
     public static class Builder {
 
         private String baseConditions;
-        private List<String> logicalConditions = new ArrayList<>();
 
-        public Builder where(Operator operator) {
+        public LogicalConditionBuilder where(Operator operator) {
             this.baseConditions = String.format("WHERE %s %s %s", operator.getLhs(), operator.getOperate(),
                 operator.getRhs());
 
-            return this;
+            return new LogicalConditionBuilder(baseConditions);
         }
 
-        public Builder or(Operator operator) {
-            logicalConditions.add(
-                String.format("OR %s %s %s", operator.getLhs(), operator.getOperate(), operator.getRhs()));
+        public static class LogicalConditionBuilder {
 
-            return this;
-        }
+            private String baseConditions;
+            private List<String> logicalConditions = new ArrayList<>();
 
-        public Builder and(Operator operator) {
-            logicalConditions.add(
-                String.format("AND %s %s %s", operator.getLhs(), operator.getOperate(), operator.getRhs()));
+            public LogicalConditionBuilder(String baseConditions) {
+                this.baseConditions = baseConditions;
+            }
 
-            return this;
-        }
+            public LogicalConditionBuilder or(Operator operator) {
+                logicalConditions.add(
+                    String.format("OR %s %s %s", operator.getLhs(), operator.getOperate(), operator.getRhs()));
 
-        public Where build() {
-            return new Where(baseConditions, logicalConditions);
+                return this;
+            }
+
+            public LogicalConditionBuilder and(Operator operator) {
+                logicalConditions.add(
+                    String.format("AND %s %s %s", operator.getLhs(), operator.getOperate(), operator.getRhs()));
+
+                return this;
+            }
+
+            public Where build() {
+                return new Where(baseConditions, logicalConditions);
+            }
         }
 
     }
