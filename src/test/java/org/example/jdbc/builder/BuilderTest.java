@@ -55,10 +55,10 @@ class BuilderTest {
     void SelectTest() {
         // given when
         Select select = Select.builder()
-            .select(new Person(1, "juwoong", 20))
+            .select(Person.class)
             .from(Table.ANIMAL)
             .build();
-
+        
         // then
         assertEquals("SELECT ID, NAME, AGE FROM ANIMAL", select.getQuery());
     }
@@ -79,7 +79,7 @@ class BuilderTest {
             .build();
 
         Select select = Select.builder()
-            .select(new Person(1, "juwoong", 20))
+            .select(Person.class)
             .from(Table.ANIMAL)
             .where(where)
             .build();
@@ -106,7 +106,7 @@ class BuilderTest {
             .build();
 
         Select select = Select.builder()
-            .select(new Person(1, "juwoong", 20))
+            .select(Person.class)
             .from(Table.ANIMAL)
             .where(where)
             .orderBy(order)
