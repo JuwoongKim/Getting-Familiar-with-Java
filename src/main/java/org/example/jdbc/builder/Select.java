@@ -87,10 +87,29 @@ public class Select {
                 this.where = where;
             }
 
-            public OrderBuilder orderBy(Order order) {
+            public EndBuilder orderBy(Order order) {
                 this.order = order;
 
-                return this;
+                return new EndBuilder(columns, table, where, order);
+            }
+
+            public Select build() {
+                return new Select(columns, table, where, order);
+            }
+        }
+
+        public static class EndBuilder {
+
+            private Class columns;
+            private Table table;
+            private Where where;
+            private Order order;
+
+            public EndBuilder(Class columns, Table table, Where where, Order order) {
+                this.columns = columns;
+                this.table = table;
+                this.where = where;
+                this.order = order;
             }
 
             public Select build() {
