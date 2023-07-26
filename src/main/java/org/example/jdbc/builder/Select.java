@@ -26,37 +26,76 @@ public class Select {
     }
 
     public static class Builder {
+
         private Class columns;
-        private Table table;
-        private Where where;
-        private Order order;
 
-        public Builder select(Class columns) {
+        public FromBuilder select(Class columns) {
             this.columns = columns;
-
-            return this;
+            return new FromBuilder(columns);
         }
 
-        public Builder from(Table table) {
-            this.table = table;
+        public static class FromBuilder {
 
-            return this;
+            private Class columns;
+            private Table table;
+
+            public FromBuilder(Class columns) {
+                this.columns = columns;
+            }
+
+            public WhereBuilder from(Table tables) {
+                this.table = tables;
+                return new WhereBuilder(columns, table);
+            }
+
         }
 
-        public Builder where(Where where) {
-            this.where = where;
+        public static class WhereBuilder {
 
-            return this;
+            private Class columns;
+            private Table table;
+            private Where where;
+            private Order order;
+
+            public WhereBuilder(Class columns, Table table) {
+                this.columns = columns;
+                this.table = table;
+            }
+
+            public OrderBuilder where(Where where) {
+                this.where = where;
+
+                return new OrderBuilder(columns, table, where);
+            }
+
+            public Select build() {
+                return new Select(columns, table, where, order);
+            }
+
         }
 
-        public Builder orderBy(Order order) {
-            this.order = order;
+        public static class OrderBuilder {
 
-            return this;
-        }
+            private Class columns;
+            private Table table;
+            private Where where;
+            private Order order;
 
-        public Select build() {
-            return new Select(columns, table, where, order);
+            public OrderBuilder(Class columns, Table table, Where where) {
+                this.columns = columns;
+                this.table = table;
+                this.where = where;
+            }
+
+            public OrderBuilder orderBy(Order order) {
+                this.order = order;
+
+                return this;
+            }
+
+            public Select build() {
+                return new Select(columns, table, where, order);
+            }
         }
 
     }
