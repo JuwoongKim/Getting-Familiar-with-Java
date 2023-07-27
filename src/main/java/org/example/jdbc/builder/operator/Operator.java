@@ -1,26 +1,47 @@
 package org.example.jdbc.builder.operator;
 
+import org.example.jdbc.builder.Select;
+
 public class Operator {
 
-    private final String lhs;
+    private final String column;
     private final String operate;
-    private final String rhs;
+    private final String value;
 
-    public Operator(String lhs, String operate, String rhs) {
-        this.lhs = lhs;
+    protected Operator(String column, String operate, Object value) {
+        this.column = column;
         this.operate = operate;
-        this.rhs = rhs;
+        this.value = parseToString(value);
     }
 
-    public String getLhs() {
-        return lhs;
+    public String getColumn() {
+        return column;
     }
 
     public String getOperate() {
         return operate;
     }
 
-    public String getRhs() {
-        return rhs;
+    public String getValue() {
+        return value;
     }
+
+    private String parseToString(Object value) {
+        String result;
+
+        if (value instanceof Integer) {
+            result = Integer.toString((Integer)value);
+        } else if (value instanceof Long) {
+            result = Long.toString((Long)value);
+        } else if (value instanceof String) {
+            result = (String)value;
+        } else if (value instanceof Select) {
+            result = ((Select)value).getQuery();
+        } else {
+            throw new IllegalArgumentException("지원하지 않는 인자 값 입니다.");
+        }
+
+        return result;
+    }
+
 }

@@ -4,8 +4,8 @@ public class Eq extends Operator {
 
     private static final String EQ = "=";
 
-    public Eq(String lhs, String rhs) {
-        super(lhs, EQ, rhs);
+    public Eq(String column, Object value) {
+        super(column, EQ, value);
     }
 
 }

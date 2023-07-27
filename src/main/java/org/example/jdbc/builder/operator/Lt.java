@@ -4,8 +4,8 @@ public class Lt extends Operator {
 
     private static final String LT = ">=";
 
-    public Lt(String lhs, String rhs) {
-        super(lhs, LT, rhs);
+    public Lt(String column, Object value) {
+        super(column, LT, value);
     }
 
 }

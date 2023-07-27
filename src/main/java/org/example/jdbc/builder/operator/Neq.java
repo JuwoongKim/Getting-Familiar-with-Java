@@ -4,7 +4,7 @@ public class Neq extends Operator {
 
     private static final String NEQ = "!=";
 
-    public Neq(String lhs, String rhs) {
-        super(lhs, NEQ, rhs);
+    public Neq(String column, Object value) {
+        super(column, NEQ, value);
     }
 }

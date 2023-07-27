@@ -13,7 +13,7 @@ class WhereTest {
     void WhereTest() {
         // given when
         Where where = Where.builder()
-            .where(new Eq("VOUCHER_ID", "1"))
+            .where(new Eq("VOUCHER_ID", 1))
             .build();
 
         // then
@@ -26,7 +26,7 @@ class WhereTest {
         // given when
         Where where = Where.builder()
             .where(new Eq("VOUCHER_TYPE", "WELCOME"))
-            .and(new Gt("CUSTOMER_AGE", "20"))
+            .and(new Gt("CUSTOMER_AGE", 20))
             .or(new Eq("CUSTOMER_TYPE", "VIP"))
             .build();
 

@@ -36,7 +36,7 @@ class SelectTest {
 
         Order order = Order.builder()
             .orderBy("VOUCHER_ID")
-            .setSortOrder(ASC)
+            .setSort(ASC)
             .build();
 
         Select select = Select.builder()
@@ -57,13 +57,13 @@ class SelectTest {
         // given when
         Where where = Where.builder()
             .where(new Eq("VOUCHER_TYPE", "WELCOME"))
-            .and(new Gt("CUSTOMER_AGE", "20"))
+            .and(new Gt("CUSTOMER_AGE", 20))
             .or(new Eq("CUSTOMER_TYPE", "VIP"))
             .build();
 
         Order order = Order.builder()
             .orderBy("VOUCHER_ID")
-            .setSortOrder(ASC)
+            .setSort(ASC)
             .build();
 
         Select select = Select.builder()
