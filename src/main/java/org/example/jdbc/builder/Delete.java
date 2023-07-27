@@ -23,22 +23,48 @@ public class Delete {
     public static class Builder {
 
         private Table table;
-        private Where where;
 
-        public Builder delete(Table table) {
+        public WhereBuilder delete(Table table) {
             this.table = table;
 
-            return this;
+            return new WhereBuilder(table);
         }
 
-        public Builder where(Where where) {
-            this.where = where;
+        public static class WhereBuilder {
 
-            return this;
+            private Table table;
+            private Where where;
+
+            public WhereBuilder(Table table) {
+                this.table = table;
+            }
+
+            public EndBuilder where(Where where) {
+                this.where = where;
+
+                return new EndBuilder(table, where);
+            }
+
+            public Delete build() {
+                return new Delete(table, where);
+            }
+
         }
 
-        public Delete build() {
-            return new Delete(table, where);
+        public static class EndBuilder {
+
+            private Table table;
+            private Where where;
+
+            public EndBuilder(Table table, Where where) {
+                this.table = table;
+                this.where = where;
+            }
+
+            public Delete build() {
+                return new Delete(table, where);
+            }
+
         }
 
     }
