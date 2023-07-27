@@ -26,28 +26,59 @@ public class Order {
     public static class Builder {
 
         private String columName;
-        private Sort sort;
 
-        public Builder orderBy(String colum) {
+        public SortBuilder orderBy(String colum) {
             this.columName = colum;
 
-            return this;
+            return new SortBuilder(columName);
         }
 
-        public Builder setSortOrder(Sort sort) {
-            this.sort = sort;
+        public static class SortBuilder {
 
-            return this;
+            private String columName;
+            private Sort sort;
+
+            public SortBuilder(String columName) {
+                this.columName = columName;
+            }
+
+            public EndBuilder setSort(Sort sort) {
+                this.sort = sort;
+
+                return new EndBuilder(columName, sort);
+            }
+
+            public Order build() {
+                return new Order(columName, sort);
+            }
+
         }
 
-        public Order build() {
-            return new Order(columName, sort);
+        public static class EndBuilder {
+
+            private String columName;
+            private Sort sort;
+
+            public EndBuilder(String columName, Sort sort) {
+                this.columName = columName;
+                this.sort = sort;
+            }
+
+            public Order build() {
+                return new Order(columName, sort);
+            }
+
         }
 
     }
 
     private void makeQuery() {
-        query.append(String.format("ORDER BY %s %s", columName, sort));
+        query.append(String.format("ORDER BY %s", columName));
+
+        if (sort != null) {
+            query.append(String.format(" %s", sort));
+        }
+
     }
 
     public String getQuery() {
